@@ -1,0 +1,23 @@
+const path = require('path');
+
+
+module.exports = {
+	mode: "production",
+	entry: "./src/js/index.js",
+	output: {
+		path: path.join(__dirname, '/dist/js'),
+		filename: "index.js"
+	},
+	module: {
+		rules: [{
+			test: /\.js$/,
+			exclude: /node_modules/,
+			use: {
+				loader: "babel-loader",
+				options: {
+					presets: ['@babel/preset-env', '@babel/preset-react']
+				}
+			}
+		}]
+	}
+};
