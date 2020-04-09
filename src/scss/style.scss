@@ -1,0 +1,157 @@
+
+.drag-drop-area{
+	border: 1px dashed #dbdbde;
+	background-color: #f9f9fb;
+	padding: 25px;
+	text-align: center;
+	color: #c7c7ce;
+	cursor: pointer;
+	
+	.file-icon{
+		font-size: 60px;
+		line-height: 60px;
+		position: relative;
+		
+		.file-plus{
+			position: absolute;
+			width: 24px;
+			height: 24px;
+			font-size: 20px;
+			line-height: 20px;
+			top: calc(50% - 5px);
+			left: calc(50% - 12px);
+			color: #2091DE;
+		}
+	}
+	
+	.instruction{
+		color: #a7a7ab;
+		margin-top: 10px;
+	}
+	
+	&.drag-over{
+		border-color: #cbcbdb;
+		background-color: #f2f2f9;
+	}
+}
+
+.file-upload-progress, .file-uploaded{
+	padding: 5px 5px 5px 40px;
+	position: relative;
+	
+	.file-icon{
+		font-size: 32px;
+		line-height: 40px;
+		width: 40px;
+		height: 40px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #c7c7ce;
+	}
+	
+	.file-name{
+		color: #333333;
+		position: relative;
+		font-size: 14px;
+		line-height: 1.5;
+		
+		.delete-icon{
+			font-size: 14px;
+			line-height: 1.5;
+			position: absolute;
+			top: 0;
+			right: 0;
+			color: #bf2a2a;
+			display: none;
+		}
+	}
+	
+	.upload-progress-bar{
+		background-color: #C6CCD6;
+		height: 3px;
+		margin-top: 5px;
+		
+		.upload-progress{
+			height: 100%;
+			background-color: #2091DE;
+		}
+	}
+	
+	&.status-done, &.file-uploaded{
+		.file-name{
+			.delete-icon{
+				display: initial;
+			}
+		}
+		
+		.upload-progress{
+			background-color: #4cc435;
+		}
+	}
+	
+	&.status-failed{
+		.upload-progress{
+			background-color: #c13636;
+		}
+	}
+	
+	&.with-bottom-details{
+		.file-icon{
+			font-size: 42px;
+			line-height: 60px;
+			width: 60px;
+			height: 60px;
+		}
+		
+		.bottom-details{
+			font-size: 14px;
+			line-height: 1.5;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: nowrap;
+			justify-content: space-between;
+			align-items: center;
+			
+			.size{
+				color: #adadb2;
+			}
+			
+			.status{
+				color: #2091DE;
+			}
+		}
+		
+		&.status-done{
+			.bottom-details{
+				.status{
+					color: #4cc435;
+				}
+			}
+		}
+	}
+	
+	&.status-failed{
+		.bottom-details{
+			.status{
+				color: #c13636;
+			}
+		}
+	}
+}
+
+.file-uploaded{
+	padding: 5px 5px 5px 35px;
+	
+	.file-icon{
+		font-size: 30px;
+		line-height: 35px;
+		width: 35px;
+		height: 35px;
+	}
+	
+	.file-name{
+		border-bottom: 1px dashed #dbdbde;
+		padding-bottom: 3px;
+	}
+}
