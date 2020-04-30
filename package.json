@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/ilshaiah/react-file-field#readme",
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "react": "^16.13.1"
   },
   "devDependencies": {
