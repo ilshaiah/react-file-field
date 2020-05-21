@@ -5,7 +5,7 @@ module.exports = {
 	mode: "production",
 	entry: "./src/index.js",
 	output: {
-		path: path.join(__dirname, '/dist/js'),
+		path: path.join(__dirname, '/dist'),
 		filename: "index.js"
 	},
 	module: {
