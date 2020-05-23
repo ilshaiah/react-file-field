@@ -30,6 +30,10 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^3.5.1"
+  },
   "files": [
     "dist"
   ]
