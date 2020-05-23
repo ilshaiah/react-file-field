@@ -19,5 +19,9 @@ module.exports = {
 				}
 			}
 		}]
+	},
+	externals: {
+		jquery: 'jQuery',
+		react: 'React'
 	}
 };
