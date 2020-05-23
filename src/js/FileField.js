@@ -1,3 +1,6 @@
+import React from 'react';
+import jQuery from 'jquery';
+
 
 class FileField extends React.Component{
 	constructor(props){
