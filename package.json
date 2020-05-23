@@ -2,7 +2,7 @@
   "name": "react-file-field",
   "version": "1.0.0",
   "description": "React file field component with drop area and progress bar",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "watch": "webpack --watch",
     "build": "webpack",
@@ -30,5 +30,8 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
