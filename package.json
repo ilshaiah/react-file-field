@@ -32,7 +32,7 @@
   },
   "peerDependencies": {
     "react": "^16.13.1",
-    "react-dom": "^3.5.1"
+    "jquery": "^3.5.1"
   },
   "files": [
     "dist"
