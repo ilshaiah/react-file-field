@@ -92,7 +92,7 @@ class FileField extends React.Component{
 				<span className="file-icon"><i className="fa fa-file-o" aria-hidden="true"></i></span>
 				
 				<div className="file-name">
-					<a className="file-link" href={this.props.filePath + this.props.value} target="_blank">{translations.front.browse_file}</a>
+					<a className="file-link" href={this.props.filePath + this.props.value} target="_blank">Browse file</a>
 					
 					{this.state.readOnly == false && 
 					<a className="delete-icon" href="javascript:void(0);" onClick={this.removeFile}>
@@ -111,7 +111,7 @@ class FileField extends React.Component{
 					<span className="file-plus"><i className="fa fa-plus" aria-hidden="true"></i></span>
 				</div>
 				
-				<div className="instruction">{translations.front.drag_drop_browse_files}</div>
+				<div className="instruction">Drag and drop or browse your files</div>
 			</div>
 		);
 	}

@@ -142,7 +142,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
         className: "file-link",
         href: this.props.filePath + this.props.value,
         target: "_blank"
-      }, translations.front.browse_file), this.state.readOnly == false && /*#__PURE__*/_react["default"].createElement("a", {
+      }, "Browse file"), this.state.readOnly == false && /*#__PURE__*/_react["default"].createElement("a", {
         className: "delete-icon",
         href: "javascript:void(0);",
         onClick: this.removeFile
@@ -170,7 +170,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
         "aria-hidden": "true"
       }))), /*#__PURE__*/_react["default"].createElement("div", {
         className: "instruction"
-      }, translations.front.drag_drop_browse_files));
+      }, "Drag and drop or browse your files"));
     }
   }, {
     key: "renderUploadProgress",

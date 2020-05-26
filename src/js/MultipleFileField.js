@@ -82,7 +82,7 @@ class MultipleFileField extends React.Component{
 					<span className="file-plus"><i className="fa fa-plus" aria-hidden="true"></i></span>
 				</div>
 				
-				<div className="instruction">{translations.front.drag_drop_browse_files}</div>
+				<div className="instruction">Drag and drop or browse your files</div>
 			</div>
 		);
 	}

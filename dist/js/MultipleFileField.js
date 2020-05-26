@@ -134,7 +134,7 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
         "aria-hidden": "true"
       }))), /*#__PURE__*/_react["default"].createElement("div", {
         className: "instruction"
-      }, translations.front.drag_drop_browse_files));
+      }, "Drag and drop or browse your files"));
     }
   }, {
     key: "renderUploadProgress",
