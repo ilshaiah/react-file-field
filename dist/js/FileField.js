@@ -9,7 +9,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
-require("font-awesome/css/font-awesome.min.css");
+require("font-awesome/css/font-awesome.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

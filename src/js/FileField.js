@@ -1,6 +1,6 @@
 import React from 'react';
 import jQuery from 'jquery';
-import 'font-awesome/css/font-awesome.min.css';
+import 'font-awesome/css/font-awesome.css';
 
 
 /*
