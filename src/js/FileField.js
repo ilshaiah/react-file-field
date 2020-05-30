@@ -1,7 +1,21 @@
 import React from 'react';
 import jQuery from 'jquery';
+import 'font-awesome/css/font-awesome.min.css';
 
 
+/*
+- uploadURL (string)
+- readOnly (boolean) (optional) (default: false)
+- texts (object) (optional) (default: {
+	drag_drop_browse_files: 'Drag and drop or browse your files',
+	no_file_uploaded: 'No file uploaded'
+}
+- name (string) (field name)
+- value (string) (field previous value) (default: '')
+- filePath (string) (path of uploaded files)
+- onChange (callback function) (accepts two parameters, 1- name of field, 2- current value)
+- postingParamName (string) (name of uploaded file for posting to the server)
+*/
 class FileField extends React.Component{
 	constructor(props){
 		super(props);
@@ -19,6 +33,11 @@ class FileField extends React.Component{
 		this.removeFile = this.removeFile.bind(this);
 		this.dropAreaRef = React.createRef();
 		this.fileFieldRef = React.createRef();
+		this.texts = (this.props.texts !== undefined)? this.props.texts : {};
+		this.texts = jQuery.extend({
+			drag_drop_browse_files: 'Drag and drop or browse your files',
+			no_file_uploaded: 'No file uploaded'
+		}, this.texts);
 	}
 	
 	changeValue(value){
@@ -111,7 +130,7 @@ class FileField extends React.Component{
 					<span className="file-plus"><i className="fa fa-plus" aria-hidden="true"></i></span>
 				</div>
 				
-				<div className="instruction">Drag and drop or browse your files</div>
+				<div className="instruction">{this.texts.drag_drop_browse_files}</div>
 			</div>
 		);
 	}
@@ -141,7 +160,7 @@ class FileField extends React.Component{
 				<span className="file-icon"><i className="fa fa-file-o" aria-hidden="true"></i></span>
 				
 				<div className="file-name">
-					<span>{translations.front.no_file_uploaded}</span>
+					<span>{this.texts.no_file_uploaded}</span>
 				</div>
 			</div>
 		);
@@ -155,7 +174,7 @@ class FileField extends React.Component{
 			progress: 0
 		});
 		var formData = new FormData();
-		formData.append('uploads[]', file);
+		formData.append(this.props.postingParamName, file);
 		
 		let thisObj = this;
 		jQuery.ajax({
@@ -173,7 +192,7 @@ class FileField extends React.Component{
 				
 				return xhr;
 			},
-			url: app_url + '/upload-media',
+			url: this.props.uploadURL,
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -182,8 +201,8 @@ class FileField extends React.Component{
 			contentType: false,
 			processData: false,
 			data: formData,
-			success: function(data){
-				if(data[0].success === true){
+			success: function(response){
+				if(response.success === true){
 					thisObj.setState({
 						doneUploading: true,
 						progress: 100
@@ -198,7 +217,7 @@ class FileField extends React.Component{
 						});
 					}, 500);
 					
-					thisObj.changeValue(data[0].file_name);
+					thisObj.changeValue(response.fileName);
 				}
 			}
 		});

@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
+require("font-awesome/css/font-awesome.min.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -33,6 +35,19 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+/*
+- uploadURL (string)
+- readOnly (boolean) (optional) (default: false)
+- texts (object) (optional) (default: {
+	drag_drop_browse_files: 'Drag and drop or browse your files',
+	no_file_uploaded: 'No file uploaded'
+}
+- name (string) (field name)
+- value (string) (field previous value) (default: '')
+- filePath (string) (path of uploaded files)
+- onChange (callback function) (accepts two parameters, 1- name of field, 2- current value)
+- postingParamName (string) (name of uploaded file for posting to the server)
+*/
 var FileField = /*#__PURE__*/function (_React$Component) {
   _inherits(FileField, _React$Component);
 
@@ -58,6 +73,11 @@ var FileField = /*#__PURE__*/function (_React$Component) {
     _this.removeFile = _this.removeFile.bind(_assertThisInitialized(_this));
     _this.dropAreaRef = _react["default"].createRef();
     _this.fileFieldRef = _react["default"].createRef();
+    _this.texts = _this.props.texts !== undefined ? _this.props.texts : {};
+    _this.texts = _jquery["default"].extend({
+      drag_drop_browse_files: 'Drag and drop or browse your files',
+      no_file_uploaded: 'No file uploaded'
+    }, _this.texts);
     return _this;
   }
 
@@ -170,7 +190,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
         "aria-hidden": "true"
       }))), /*#__PURE__*/_react["default"].createElement("div", {
         className: "instruction"
-      }, "Drag and drop or browse your files"));
+      }, this.texts.drag_drop_browse_files));
     }
   }, {
     key: "renderUploadProgress",
@@ -212,7 +232,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
         "aria-hidden": "true"
       })), /*#__PURE__*/_react["default"].createElement("div", {
         className: "file-name"
-      }, /*#__PURE__*/_react["default"].createElement("span", null, translations.front.no_file_uploaded)));
+      }, /*#__PURE__*/_react["default"].createElement("span", null, this.texts.no_file_uploaded)));
     }
   }, {
     key: "upload",
@@ -224,7 +244,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
         progress: 0
       });
       var formData = new FormData();
-      formData.append('uploads[]', file);
+      formData.append(this.props.postingParamName, file);
       var thisObj = this;
 
       _jquery["default"].ajax({
@@ -240,7 +260,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
           }, false);
           return xhr;
         },
-        url: app_url + '/upload-media',
+        url: this.props.uploadURL,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -249,8 +269,8 @@ var FileField = /*#__PURE__*/function (_React$Component) {
         contentType: false,
         processData: false,
         data: formData,
-        success: function success(data) {
-          if (data[0].success === true) {
+        success: function success(response) {
+          if (response.success === true) {
             thisObj.setState({
               doneUploading: true,
               progress: 100
@@ -263,7 +283,7 @@ var FileField = /*#__PURE__*/function (_React$Component) {
                 progress: 0
               });
             }, 500);
-            thisObj.changeValue(data[0].file_name);
+            thisObj.changeValue(response.fileName);
           }
         }
       });
