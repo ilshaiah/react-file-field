@@ -3,19 +3,6 @@ import jQuery from 'jquery';
 import 'font-awesome/css/font-awesome.css';
 
 
-/*
-- uploadURL (string)
-- readOnly (boolean) (optional) (default: false)
-- texts (object) (optional) (default: {
-	drag_drop_browse_files: 'Drag and drop or browse your files',
-	no_file_uploaded: 'No file uploaded'
-}
-- name (string) (field name)
-- value (string) (field previous value) (default: '')
-- filePath (string) (path of uploaded files)
-- onChange (callback function) (accepts two parameters, 1- name of field, 2- current value)
-- postingParamName (string) (name of uploaded file for posting to the server)
-*/
 class FileField extends React.Component{
 	constructor(props){
 		super(props);
