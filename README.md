@@ -19,23 +19,23 @@ You need to use css and files loader with webpack. webpack.config.js will contai
 ```js
 ...
 module.exports = {
-	...
-	module: {
-		rules: [
-		...
-		{
-			test: /\.css$/,
-			use: [
-				'style-loader',
-				'css-loader'
-			]
-		},{
-			test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-			use: [
-				'file-loader'
-			]
-       }]
-	   ...
+  ...
+  module: {
+    rules: [
+    ...
+    {
+      test: /\.css$/,
+	  use: [
+	    'style-loader',
+		'css-loader'
+      ]
+    },{
+      test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+      use: [
+        'file-loader'
+      ]
+    }]
+    ...
 ```
 
 ## Component usage
@@ -64,10 +64,7 @@ const props = {
 | postingParamName       | string | Name of uploaded file for posting to the server.                 |
 | uploadURL              | string | URL to post uploaded file to                                     |
 | readOnly (default: false)| boolean| For read only field. For the case of non editable form         |
-| texts                  | object | Texts and messages. the default value is: {
-	drag_drop_browse_files: 'Drag and drop or browse your files',
-	no_file_uploaded: 'No file uploaded'
-}                                                                                                    |
+| texts                  | object | Texts and messages. the default value is: {drag_drop_browse_files: 'Drag and drop or browse your files', no_file_uploaded: 'No file uploaded'}                                                                                                    |
 
 ## License
 
