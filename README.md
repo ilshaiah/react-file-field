@@ -106,7 +106,6 @@ class Form extends React.Component{
             }
         };
         
-        this.handleFieldChange = this.handleFieldChange.bind(this);
         this.handleFileFieldChange = this.handleFileFieldChange.bind(this);
     }
     
