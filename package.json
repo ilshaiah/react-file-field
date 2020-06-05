@@ -1,7 +1,7 @@
 {
   "name": "react-file-field",
   "version": "1.0.0",
-  "description": "React file field component with drop area and progress bar",
+  "description": "React file/multiple files field components with drop area and progress bar",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
