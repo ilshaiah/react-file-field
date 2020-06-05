@@ -19,23 +19,24 @@ You need to use css and files loader with webpack. webpack.config.js will contai
 ```js
 ...
 module.exports = {
-  ...
-  module: {
-    rules: [
     ...
-    {
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        'css-loader'
-      ]
-    },{
-      test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-      use: [
-        'file-loader'
-      ]
-    }]
+    module: {
+        rules: [
+        ...
+        {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader'
+            ]
+        },{
+            test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+            use: [
+                'file-loader'
+            ]
+        }]
     ...
+    }
 ```
 
 ## Component usage
@@ -129,7 +130,7 @@ class Form extends React.Component{
                 
                 <div>
                     <label htmlFor="manyFiles">Many files upload</label>
-                    <MultipleFileField name="ATTACHEMENTS" onChange={this.handleFileFieldChange} postingParamName="upload" uploadURL="http://localhost/api_test/upload2.php" />
+                    <MultipleFileField name="manyFiles" onChange={this.handleFileFieldChange} postingParamName="upload" uploadURL="http://localhost/api_test/upload2.php" />
                 </div>
                 <br />
             </div>
