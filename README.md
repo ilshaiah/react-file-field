@@ -86,7 +86,7 @@ Parameters of MultipleFileField component:
 | uploadURL              | string | URL to post uploaded file to                                     |
 | texts                  | object | Texts and messages. the default value is: {drag_drop_browse_files: 'Drag and drop or browse your files', uploading: 'Uploading', uploaded: 'Uploaded', failed_uploading: 'Failed uploading', of: 'of'}
 
-## Examples
+## Example
 
 ```js
 import React from 'react';
