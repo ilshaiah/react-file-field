@@ -1,6 +1,6 @@
 # react-file-field
 
-React file field component with drop area and progress bar
+React file/multiple files field components with drop area and progress bar
 
 ## Installation
 
@@ -42,12 +42,12 @@ module.exports = {
 
 ```js
 const props = {
-  name: 'attach',
-  value: '',
-  filePath: 'http://localhost/api_test/',
-  onChange: '',
-  postingParamName: 'upload',
-  uploadURL: 'http://localhost/api_test/upload.php'
+    name: 'attach',
+    value: '',
+    filePath: 'http://localhost/api_test/',
+    onChange: '',
+    postingParamName: 'upload',
+    uploadURL: 'http://localhost/api_test/upload.php'
 };
 
 ...
@@ -96,49 +96,88 @@ import jQuery from 'jquery';
 
 
 class Form extends React.Component{
-	constructor(props){
-		super(props);
-		this.state = {
-			data: {
-				oneFile: '',
-				manyFiles: []
-			}
-		};
-		
-		this.handleFieldChange = this.handleFieldChange.bind(this);
-		this.handleFileFieldChange = this.handleFileFieldChange.bind(this);
-	}
-	
-	handleFileFieldChange(name, value){
-		let data = Object.assign({}, this.state.data);
-		data[name] = value;
-		
-		this.setState({
-			data
-		});
-	}
-	
-	render(){
-		return (
-			<div>
-				<div>
-					<label htmlFor="oneFile">One file upload</label>
-					<FileField name="oneFile" value={this.state.data.oneFile} filePath="http://localhost/api_test/" onChange={this.handleFileFieldChange} postingParamName="upload" uploadURL="http://localhost/api_test/upload.php" />
-				</div>
-				<br />
-				
-				<div>
-					<label htmlFor="manyFiles">Many files upload</label>
-					<MultipleFileField name="ATTACHEMENTS" onChange={this.handleFileFieldChange} postingParamName="upload" uploadURL="http://localhost/api_test/upload2.php" />
-				</div>
-				<br />
-			</div>
-		);
-	}
+    constructor(props){
+        super(props);
+        this.state = {
+            data: {
+                oneFile: '',
+                manyFiles: []
+            }
+        };
+        
+        this.handleFieldChange = this.handleFieldChange.bind(this);
+        this.handleFileFieldChange = this.handleFileFieldChange.bind(this);
+    }
+    
+    handleFileFieldChange(name, value){
+        let data = Object.assign({}, this.state.data);
+        data[name] = value;
+        
+        this.setState({
+            data
+        });
+    }
+    
+    render(){
+        return (
+            <div>
+                <div>
+                    <label htmlFor="oneFile">One file upload</label>
+                    <FileField name="oneFile" value={this.state.data.oneFile} filePath="http://localhost/api_test/" onChange={this.handleFileFieldChange} postingParamName="upload" uploadURL="http://localhost/api_test/upload.php" />
+                </div>
+                <br />
+                
+                <div>
+                    <label htmlFor="manyFiles">Many files upload</label>
+                    <MultipleFileField name="ATTACHEMENTS" onChange={this.handleFileFieldChange} postingParamName="upload" uploadURL="http://localhost/api_test/upload2.php" />
+                </div>
+                <br />
+            </div>
+        );
+    }
 }
 
 
 export default Form;
+```
+
+As for server side implementation and response. Here's an example written in PHP.
+The first code snippet is for single file upload.
+
+```php
+<?php ob_start();
+header("Content-Type: application/json");
+
+$extension = strtolower(substr(strrchr($_FILES['upload']['name'], '.'), 1));
+$fileName = uniqid() . '.' . $extension;
+$success = @move_uploaded_file($_FILES['upload']['tmp_name'], $fileName);
+
+$response = ['success' => $success, 'fileName' => $fileName];
+
+echo json_encode($response);
+```
+
+And here is another example for multiple files upload
+
+```php
+<?php ob_start();
+header("Content-Type: application/json");
+
+$response = [];
+foreach($_FILES['upload']['tmp_name'] as $id => $vals){
+    $extension = strtolower(substr(strrchr($_FILES['upload']['name'][ $id ], '.'), 1));
+    $fileName = uniqid() . '.' . $extension;
+    $success = @move_uploaded_file($_FILES['upload']['tmp_name'][ $id ], $fileName);
+    
+    $response[ $id ] = [
+        'success' => $success,
+        'originalName' => $_FILES['upload']['name'][ $id ],
+        'fileName' => $fileName,
+        'extension' => $extension,
+    ];
+}
+
+echo json_encode($response);
 ```
 
 ## License
