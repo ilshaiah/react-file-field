@@ -35,19 +35,6 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-/*
-- uploadURL (string)
-- readOnly (boolean) (optional) (default: false)
-- texts (object) (optional) (default: {
-	drag_drop_browse_files: 'Drag and drop or browse your files',
-	no_file_uploaded: 'No file uploaded'
-}
-- name (string) (field name)
-- value (string) (field previous value) (default: '')
-- filePath (string) (path of uploaded files)
-- onChange (callback function) (accepts two parameters, 1- name of field, 2- current value)
-- postingParamName (string) (name of uploaded file for posting to the server)
-*/
 var FileField = /*#__PURE__*/function (_React$Component) {
   _inherits(FileField, _React$Component);
 

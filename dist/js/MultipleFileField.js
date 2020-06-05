@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _jquery = _interopRequireDefault(require("jquery"));
 
+require("font-awesome/css/font-awesome.css");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -53,6 +55,14 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
     _this.changeFieldHandler = _this.changeFieldHandler.bind(_assertThisInitialized(_this));
     _this.dropAreaRef = _react["default"].createRef();
     _this.fileFieldRef = _react["default"].createRef();
+    _this.texts = _this.props.texts !== undefined ? _this.props.texts : {};
+    _this.texts = _jquery["default"].extend({
+      drag_drop_browse_files: 'Drag and drop or browse your files',
+      uploading: 'Uploading',
+      uploaded: 'Uploaded',
+      failed_uploading: 'Failed uploading',
+      of: 'of'
+    }, _this.texts);
     return _this;
   }
 
@@ -134,13 +144,13 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
         "aria-hidden": "true"
       }))), /*#__PURE__*/_react["default"].createElement("div", {
         className: "instruction"
-      }, "Drag and drop or browse your files"));
+      }, this.texts.drag_drop_browse_files));
     }
   }, {
     key: "renderUploadProgress",
     value: function renderUploadProgress(file) {
-      var size = file.doneUploading === false ? this.prepareFileSize(file.uploadedSize) + ' ' + translations.front.of + ' ' + this.prepareFileSize(file.size) : this.prepareFileSize(file.size);
-      var status = file.doneUploading === false ? translations.front.uploading : file.succeedUploading === true ? translations.front.uploaded : translations.front.failed_uploading;
+      var size = file.doneUploading === false ? this.prepareFileSize(file.uploadedSize) + ' ' + this.texts.of + ' ' + this.prepareFileSize(file.size) : this.prepareFileSize(file.size);
+      var status = file.doneUploading === false ? this.texts.uploading : file.succeedUploading === true ? this.texts.uploaded : this.texts.failed_uploading;
       var uploadingStatusCls = file.doneUploading === false ? '' : file.succeedUploading === true ? 'status-done' : 'status-failed';
       return /*#__PURE__*/_react["default"].createElement("div", {
         className: "p-t-20",
@@ -185,7 +195,7 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
 
       for (var i = 0; i < files.length; i++) {
         var id = this.uniqid();
-        formData.append('uploads[' + id + ']', files[i]);
+        formData.append(this.props.postingParamName + '[' + id + ']', files[i]);
         state.files[id] = {
           id: id,
           doneUploading: false,
@@ -214,7 +224,7 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
           }, false);
           return xhr;
         },
-        url: app_url + '/upload-media',
+        url: this.props.uploadURL,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
@@ -223,8 +233,8 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
         contentType: false,
         processData: false,
         data: formData,
-        success: function success(data) {
-          thisObj.setUploadingResult(data);
+        success: function success(response) {
+          thisObj.setUploadingResult(response);
         }
       });
     }
@@ -290,10 +300,10 @@ var MultipleFileField = /*#__PURE__*/function (_React$Component) {
           file.progress = 100;
           file.uploadedSize = file.size;
           file.succeedUploading = true;
-          file.uploadedFileName = result[id].file_name;
+          file.uploadedFileName = result[id].fileName;
           state.data[id] = {
-            original_name: result[id].original_name,
-            file_name: result[id].file_name,
+            originalName: result[id].originalName,
+            fileName: result[id].fileName,
             extension: result[id].extension
           };
         } else {

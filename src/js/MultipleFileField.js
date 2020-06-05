@@ -1,5 +1,6 @@
 import React from 'react';
 import jQuery from 'jquery';
+import 'font-awesome/css/font-awesome.css';
 
 
 class MultipleFileField extends React.Component{
@@ -14,6 +15,14 @@ class MultipleFileField extends React.Component{
 		this.changeFieldHandler = this.changeFieldHandler.bind(this);
 		this.dropAreaRef = React.createRef();
 		this.fileFieldRef = React.createRef();
+		this.texts = (this.props.texts !== undefined)? this.props.texts : {};
+		this.texts = jQuery.extend({
+			drag_drop_browse_files: 'Drag and drop or browse your files',
+			uploading: 'Uploading',
+			uploaded: 'Uploaded',
+			failed_uploading: 'Failed uploading',
+			of: 'of'
+		}, this.texts);
 	}
 	
 	changeValue(){
@@ -82,14 +91,14 @@ class MultipleFileField extends React.Component{
 					<span className="file-plus"><i className="fa fa-plus" aria-hidden="true"></i></span>
 				</div>
 				
-				<div className="instruction">Drag and drop or browse your files</div>
+				<div className="instruction">{this.texts.drag_drop_browse_files}</div>
 			</div>
 		);
 	}
 	
 	renderUploadProgress(file){
-		let size = (file.doneUploading === false)? this.prepareFileSize(file.uploadedSize) + ' ' + translations.front.of + ' ' + this.prepareFileSize(file.size) : this.prepareFileSize(file.size);
-		let status = (file.doneUploading === false)? translations.front.uploading : ((file.succeedUploading === true)? translations.front.uploaded : translations.front.failed_uploading);
+		let size = (file.doneUploading === false)? this.prepareFileSize(file.uploadedSize) + ' ' + this.texts.of + ' ' + this.prepareFileSize(file.size) : this.prepareFileSize(file.size);
+		let status = (file.doneUploading === false)? this.texts.uploading : ((file.succeedUploading === true)? this.texts.uploaded : this.texts.failed_uploading);
 		let uploadingStatusCls = (file.doneUploading === false)? '' : ((file.succeedUploading === true)? 'status-done' : 'status-failed');
 		
 		return (
@@ -123,7 +132,7 @@ class MultipleFileField extends React.Component{
 		let ids = [];
 		for(let i = 0; i < files.length; i++){
 			let id = this.uniqid();
-			formData.append('uploads[' + id + ']', files[i]);
+			formData.append(this.props.postingParamName + '[' + id + ']', files[i]);
 			state.files[id] = {
 				id: id,
 				doneUploading: false,
@@ -153,7 +162,7 @@ class MultipleFileField extends React.Component{
 				
 				return xhr;
 			},
-			url: app_url + '/upload-media',
+			url: this.props.uploadURL,
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
@@ -162,8 +171,8 @@ class MultipleFileField extends React.Component{
 			contentType: false,
 			processData: false,
 			data: formData,
-			success: function(data){
-				thisObj.setUploadingResult(data);
+			success: function(response){
+				thisObj.setUploadingResult(response);
 			}
 		});
 	}
@@ -224,11 +233,11 @@ class MultipleFileField extends React.Component{
 				file.progress = 100;
 				file.uploadedSize = file.size;
 				file.succeedUploading = true;
-				file.uploadedFileName = result[id].file_name;
+				file.uploadedFileName = result[id].fileName;
 				
 				state.data[id] = {
-					original_name: result[id].original_name,
-					file_name: result[id].file_name,
+					originalName: result[id].originalName,
+					fileName: result[id].fileName,
 					extension: result[id].extension
 				};
 			} else{
