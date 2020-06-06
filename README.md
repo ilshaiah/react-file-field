@@ -14,6 +14,13 @@ First, you need import
 import {FileField, MultipleFileField} from 'react-file-field';
 import 'react-file-field/dist/style.css';
 ```
+
+For RTL styles import
+
+```js
+import 'react-file-field/dist/style-rtl.css';
+```
+
 You need to use css and files loader with webpack. webpack.config.js will contain
 
 ```js
