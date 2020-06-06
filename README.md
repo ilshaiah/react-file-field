@@ -15,9 +15,10 @@ import {FileField, MultipleFileField} from 'react-file-field';
 import 'react-file-field/dist/style.css';
 ```
 
-For RTL styles import
+As for RTL layout
 
 ```js
+import {FileField, MultipleFileField} from 'react-file-field';
 import 'react-file-field/dist/style-rtl.css';
 ```
 
