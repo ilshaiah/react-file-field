@@ -19,9 +19,9 @@
     "react-file-field",
     "file",
     "field",
-	"drag-drop",
-	"progress-bar",
-	"multiple"
+    "drag-drop",
+    "progress-bar",
+    "multiple"
   ],
   "bugs": {
     "url": "https://github.com/ilshaiah/react-file-field/issues"
