@@ -28,18 +28,18 @@
   },
   "homepage": "https://github.com/ilshaiah/react-file-field#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
-    "@babel/preset-react": "^7.9.4",
-    "babel-loader": "^8.1.0"
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
     "font-awesome": "^4.7.0",
-    "jquery": "^3.5.1",
-    "react": "^16.13.1"
+    "jquery": "^3.6.0",
+    "react": "^16.14.0"
   }
 }
